@@ -31,8 +31,8 @@ def readDataFile(datafile):
     
     return parsedList
 
-data = readDataFile(datafile)
 
+data = readDataFile(datafile)
 
 
 def processData(data):
@@ -47,9 +47,7 @@ def processData(data):
             
             memLoc = line[0]
             dataDec = int(line[1])
-            print(dataDec)
             dataBin = bin(dataDec)[2:].zfill(36)
-            print(dataBin)
             newBin = ""
             
             for x, maskDig in enumerate(mask):
@@ -68,12 +66,15 @@ dataMem = processData(data)
 
 def sumNums(dataMem):
     
-    sum = 0
+    sums = 0
     for line in dataMem:
-        sum += int(dataMem[line],2)
-    return sum
+        sums += int(dataMem[line],2)
+    return sums
 
-# feeling SUS about the amount of data
+print(sumNums(dataMem))
+
+
+
 def countMaxX(data):
     
     maxCount = 0
@@ -94,7 +95,6 @@ def processData2(data):
         
         if len(line) == 36:
             mask = line
-            print("mask: ", mask)
             
             xIndex = []
             for pos, digit in enumerate(mask):
@@ -103,14 +103,11 @@ def processData2(data):
 
         
         else:
-            
-            
             iterations = 2 ** len(xIndex)
             iterBinLen = len(bin(iterations)[2:])
             for x in range(iterations):
                 
                 maskList = bin(x)[2:].zfill(iterBinLen)
-                print(maskList)
                 memLoc = line[0]
                 dataDec = int(line[1])
                 memBin = bin(int(memLoc))[2:].zfill(36)
@@ -120,7 +117,6 @@ def processData2(data):
                 for z, maskDig in enumerate(mask):
                     if maskDig == "X":
                         newBin += maskList[xCount]
-                        print(maskList[xCount])
                         xCount += 1
                     elif maskDig == "1":
                         newBin += "1"
@@ -137,11 +133,12 @@ def processData2(data):
 
 dataMem2 = processData2(data)     
             
-# a bit lazy to clean to make functions work with each other
-def sumNums2(dataMem):
-    
-    sum = 0
-    for line in dataMem:
-        sum += int(dataMem[line])
-    return sum
 
+def sumNums2(dataMem2):
+    
+    sums = 0
+    for line in dataMem2:
+        sums += int(dataMem2[line])
+    return sums
+
+print(sumNums2(dataMem2))

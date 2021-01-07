@@ -8,6 +8,7 @@ Created on Sat Dec 19 12:41:50 2020
 
 datafile = "data.txt"
 
+
 def initCube(datafile):
     
     x, y, z = 0, 0, 0
@@ -15,7 +16,6 @@ def initCube(datafile):
     with open(datafile) as file:
         list = file.readlines()
         
-    
     space = {}
     
     for y, line in enumerate(list):
@@ -28,9 +28,8 @@ def initCube(datafile):
             
     return space
 
+
 space = initCube(datafile)
-
-
 
 
 def findSpaceDim(space):
@@ -51,8 +50,6 @@ def findSpaceDim(space):
     return minDim, maxDim
             
 
-
-
 def printSpace(newSpace):
     
     spaceDim = findSpaceDim(newSpace)
@@ -72,20 +69,13 @@ def printSpace(newSpace):
                 
                 line += state
             
-            
             zSpace += line + "\n"
-        
-        print("zSpace: ", z)
-        print(zSpace)
-
 
 
 
 def cycleCubes(space):
     
-    
     newSpace = space.copy()
-    
     
     for cycle in range(6):
         
@@ -104,8 +94,6 @@ def cycleCubes(space):
                         state = "."
                         pass
                         
-                    
-                    
                     activeCount = 0
                     for xChk in range(x - 1, x + 2):
                           
@@ -126,9 +114,6 @@ def cycleCubes(space):
                                     
                                     activeCount += 1
                                     
-                    
-                    
-
                     if state == "#":
                         
                         if activeCount == 2 or activeCount == 3:
@@ -140,9 +125,6 @@ def cycleCubes(space):
                         
                         if activeCount == 3:
                             newSpace[(x, y, z)] = "#"
-                            
-        # printSpace(newSpace)
-                            
         
     return newSpace
 
@@ -164,7 +146,7 @@ def countActives(newSpace):
     return count
                 
 
-
+countActives(newSpace)
 
 
 """
@@ -180,7 +162,6 @@ def initCubeHyp(datafile):
     with open(datafile) as file:
         list = file.readlines()
         
-    
     space = {}
     
     for y, line in enumerate(list):
@@ -204,7 +185,6 @@ def findSpaceDimHyp(spaceHyp):
     minDim = [0, 0, 0, 0]
     maxDim = [0, 0, 0, 0]
 
-    
     for key in spaceHyp.keys():
         
         for dim in range(4):
@@ -221,7 +201,6 @@ def findSpaceDimHyp(spaceHyp):
 def printSpaceHyp(newSpace):
     
     spaceDim = findSpaceDimHyp(newSpace)
-
 
     for w in range(spaceDim[0][3], spaceDim[1][3] + 1):
         
@@ -240,22 +219,12 @@ def printSpaceHyp(newSpace):
                     
                     line += state
                 
-                
                 zSpace += line + "\n"
-            
-            print("zSpace: ", z, "wSpace: ", w)
-            print(zSpace)
-
-
-
 
 
 def cycleCubesHyp(spaceHyp):
     
-    
     newSpace = spaceHyp.copy()
-    
-    
     
     for cycle in range(6):
         
@@ -270,15 +239,12 @@ def cycleCubesHyp(spaceHyp):
                     
                     for w in range(spaceDim[0][3] - 1, spaceDim[1][3] + 2):
                         
-                        
                         try:
                             state = newSpaceOld[(x, y, z, w)]
                         except:
                             state = "."
                             pass
                             
-                        
-                        
                         activeCount = 0
                         for xChk in range(x - 1, x + 2):
                               
@@ -296,16 +262,10 @@ def cycleCubesHyp(spaceHyp):
                                         except:
                                             chkState = "."
                                             
-                                        
                                         if chkState == "#":
                                             
                                             activeCount += 1
                                         
-                        
-                        
-                        
-                        
-                        
                         if state == "#":
                             
                             if activeCount == 2 or activeCount == 3:
@@ -319,8 +279,7 @@ def cycleCubesHyp(spaceHyp):
                                 newSpace[(x, y, z, w)] = "#"
                             
         printSpaceHyp(newSpace)
-                            
-        
+                         
     return newSpace
                 
                 

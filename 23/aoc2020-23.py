@@ -5,13 +5,16 @@ Created on Tue Dec 29 17:07:43 2020
 @author: eateren
 """
 
+
 data = "467528193"
+
 
 def formatCups(data):
     cups = []
     for n in data:
         cups.append(int(n))
     return cups
+
 
 cups = formatCups(data)
 
@@ -41,7 +44,6 @@ def crabCups(cups):
 def hundredCups(cups):
 
     for n in range(100):
-        print(n)
         cups = crabCups(cups)
         
     cDex = cups.index(1) + 1
@@ -51,9 +53,12 @@ def hundredCups(cups):
     return num
 
 
+print(hundredCups(cups))
+
 # Part Two
 # looking at reddit I found that moving around sets of lists 10mil times
 # takes too long.  We are doing again a dictionary method!!
+
 
 data2 = "467528193"
 
@@ -122,7 +127,7 @@ def cycleTenMil(cupDict):
 
 newCupDict = cycleTenMil(cupDict)
 
-
+print(newCupDict[1] * newCupDict[newCupDict[1]])
 
 
 

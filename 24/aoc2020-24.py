@@ -22,6 +22,7 @@ def readData(datafile):
 
 data = readData(datafile)
 
+
 moveDict = {
     "eE": (1, 0), "wE": (-1, 0),
     "eO": (1, 0), "wO": (-1, 0),
@@ -67,10 +68,10 @@ def findBlackTotal(tileDict):
     for tile in tileDict:
         total += tileDict[tile]
     
-    print(total)
     return total
 
-findBlackTotal(tileDict)
+
+print(findBlackTotal(tileDict))
 
 
 
@@ -135,7 +136,7 @@ def hundredDays(tileDict):
     
     
 newtileDict = hundredDays(tileDict)
-findBlackTotal(newtileDict)
+print(findBlackTotal(newtileDict))
 
 
     

@@ -5,8 +5,9 @@ Created on Fri Dec 11 11:58:54 2020
 @author: eateren
 """
 
-datafile = "tdata.txt"
-tdata = "tdata.txt"
+
+
+datafile = "data.txt"
 
 def readData(datafile):
     
@@ -15,8 +16,8 @@ def readData(datafile):
         
     list = [line.strip() for line in list]
 
-    
     return list
+
 
 data = readData(datafile)
 
@@ -31,8 +32,7 @@ def seatLogic(data):
         newRow = []
         
         for seatNo, seat in enumerate(oldRow):
-            
-            
+ 
             adjSeats = []
             
             for y in range(-1,2):
@@ -59,8 +59,6 @@ def seatLogic(data):
                 newRow.append("L")
             else:
                 newRow.append(oldSeatLayout[rowNo][seatNo])
-                
-
 
         newSeatLayout.append(newRow)
         
@@ -92,6 +90,10 @@ def countSeats(finalData):
     return seatCount
 
 
+print(countSeats(finalData))
+
+
+
 # Part two
 
 
@@ -107,10 +109,58 @@ def listifyData(data):
     return listData
 
 
-listData = listifyData(data)
-def seatLogic2(data):
+
+def findAdjSeat(data, y, x, rowNo, seatNo):
     
-    oldSeatLayout = data
+    vectorLength = 1
+    skipSeat = False
+    foundSeat = False
+    
+    while True:
+        
+        rowChange = y * vectorLength
+        seatChange = x * vectorLength
+        
+        newRow = rowNo + rowChange
+        newSeat = seatNo + seatChange
+        
+        
+        newRowChk = newRow in range(0, len(data))
+        newSeatChk = newSeat in range(0, len(data[0]))
+        # print("newRow: ", newRow, "newSeat: ", newSeat, "foundSeat: ", foundSeat, "vector: ", vectorLength, "skipSeat: ", skipSeat)
+        
+        if not newRowChk or not newSeatChk:
+            newRow = rowNo + (y * (vectorLength - 1))
+            newSeat = seatNo + (x * (vectorLength - 1))
+            foundSeat = True
+        
+        if y == 0 and x == 0:
+            skipSeat = True
+            return skipSeat, newRow, newSeat
+            break
+
+        if newRow == rowNo and y != 0:
+            skipSeat = True
+  
+        if newSeat == seatNo and x != 0:
+            skipSeat = True
+
+        if foundSeat:
+            return skipSeat, newRow, newSeat
+            break
+
+        if data[newRow][newSeat] == ".":
+            vectorLength += 1
+        else:
+            foundSeat = True
+
+
+listData = listifyData(data)
+
+
+def seatLogic2(listData):
+    
+    oldSeatLayout = listData
     newSeatLayout = []
     
     for rowNo, oldRow in enumerate(oldSeatLayout):
@@ -118,68 +168,22 @@ def seatLogic2(data):
         newRow = []
         
         for seatNo, seat in enumerate(oldRow):
-            
-            
+     
             adjSeats = []
             
             for y in range(-1,2):
              
                 for x in range(-1,2):
+        
+                    adjSeat = findAdjSeat(listData, y, x, rowNo, seatNo)
+                    adjSeaty = adjSeat[1]
+                    adjSeatx = adjSeat[2]
                     
-                    vectorLength = 1
-
-                    while True:
-
-                        skipAdj = False
-                        adjRowNo = rowNo + (y * vectorLength)
-                        adjSeatNo = seatNo + (x * vectorLength)
-                        print(adjSeatNo)
-                        print(seatNo)
-
-
-                        adjRowChk = adjRowNo not in range(0, len(oldSeatLayout))
-                        adjSeatChk = adjSeatNo not in range(0, len(oldRow))
-                        centerAdj = (x == 0) and (y == 0)
-                        print(adjSeatChk)
-                        
-                        
-                        if centerAdj:
-                            skipAdj = True
-                            print("center")
-                            break
-                        
-                        if (adjRowChk or adjSeatChk) and (vectorLength == 1):
-                            skipAdj = True
-                            print("edgE")
-                            break
-
-
-                        if adjRowChk:
-                            adjRowNo = rowNo + (y * (vectorLength - 1))
-                            
-                        if adjSeatChk:
-                            adjSeatNo = seatNo + (x * (vectorLength - 1))
-                            
-
-                        
-                        
-                        print(adjRowNo, adjSeatNo)
-                        print("space: ", oldSeatLayout[adjRowNo][adjSeatNo])
-                        if oldSeatLayout[adjRowNo][adjSeatNo] == "." and (not (adjRowChk or adjSeatChk)):
-                            vectorLength += 1
-                            print("vector: ", vectorLength)
-                        else:
-                            break
-                            
-                    if skipAdj:
+                    if adjSeat[0]:
                         continue
-                    
-                    adjSeats.append(oldSeatLayout[adjRowNo][adjSeatNo])
-                    
-                    
-                        
-                        
-            print(adjSeats)
+                    else:                    
+                        adjSeats.append(oldSeatLayout[adjSeaty][adjSeatx])
+
             if oldSeatLayout[rowNo][seatNo] == ".":
                 newRow.append(oldSeatLayout[rowNo][seatNo])
             elif "#" not in adjSeats:
@@ -188,9 +192,7 @@ def seatLogic2(data):
                 newRow.append("L")
             else:
                 newRow.append(oldSeatLayout[rowNo][seatNo])
-                
-
-
+         
         newSeatLayout.append(newRow)
         
     return newSeatLayout
@@ -202,22 +204,18 @@ def fillSeats2(listData):
     oldSet = listData
     newSet = []
                      
-    x = 0
+
     while oldSet != newSet:
-        
         
         oldSet = listData.copy()
         listData = seatLogic2(listData).copy()
         newSet = listData.copy()
-        
-        x += 1
-        print(x)
 
-        
     return newSet
                         
                         
 finalData2 = fillSeats2(listData)
+
 
 def countSeats2(finalData2):
     
@@ -226,3 +224,5 @@ def countSeats2(finalData2):
         seatCount += line.count("#")
     
     return seatCount
+
+print(countSeats2(finalData2))

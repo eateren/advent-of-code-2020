@@ -7,7 +7,6 @@ Created on Thu Dec 10 19:55:13 2020
 
 
 datafile = "data.txt"
-tdata = "tdata.txt"
 
 def readData(datafile):
     
@@ -36,6 +35,8 @@ def findJoltDiff(data):
     return joltDiff
 
 joltDiff = findJoltDiff(data)
+print((joltDiff.count(1)) * (joltDiff.count(3) + 1))
+
 
 
 def combindJoltDiff(data, joltDiff):
@@ -50,6 +51,9 @@ def combindJoltDiff(data, joltDiff):
 
 combData = combindJoltDiff(data, joltDiff)
 
+
+
+# needed help on reddit to use the groupings of 1 method
 
 def coundOneGroupings(combData):
     
@@ -66,86 +70,9 @@ def coundOneGroupings(combData):
     return groupCount
             
 groupings = coundOneGroupings(combData)
-
-
 permCount = (2**groupings[2]) * (4**groupings[3]) * (7**(groupings[4]+1))
+print(permCount)
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-"""
-# the below algo doesnt work.  A good method is to count the groups of one 
-differences to calculate the number of different groupings.
-This is because the diffs in this dataset is either 1 or 3.
-
-This solution is not ideal, but works well because of the vuneralbility of the
-dataset.
-
-
-"""
-
-maxData = max(data)
-
-def countPermutations(data):
-    
-    x = 0
-    
-    maxStepList = []
-    while True:
-        
-        countSteps = 0
-        step = x
-        
-        for y in range(1,4):
-            print(step + y)
-            
-            if step + y in data:
-                countSteps += 1
-                x = step + y
-                
-        if countSteps == 3:
-            countSteps = 4
-        
-        maxStepList.append(countSteps)
-        
-        if x >= maxData:
-            break
-        
-    return maxStepList
-    
-maxStepList = countPermutations(data)
-
-def findPerm(maxStepList):
-
-    num = 1    
-    for no, x in enumerate(maxStepList):
-        
-        num = num * x
-
-        
-    return num
-    
-perm = findPerm(maxStepList)
-    
-
-
-def test(data):
-    
-    for x, num in enumerate(data):
-        
-        print(x, num)
-        if data[x+1] - num == 2:
-            print(2)
 
 
     

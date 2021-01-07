@@ -5,7 +5,9 @@ Created on Tue Dec 29 11:08:29 2020
 @author: eateren
 """
 
+
 datafile = "data.txt"
+
 
 def readData(datafile):
     
@@ -18,8 +20,8 @@ def readData(datafile):
     
     return deck1, deck2
 
-deck1, deck2 = readData(datafile)
 
+deck1, deck2 = readData(datafile)
 
 
 def gameRound(deck1, deck2):
@@ -60,12 +62,11 @@ def computeScore(deck1, deck2):
     for no, card in enumerate(deck):
         score += (no + 1) * card
     
-    print(score)
     return score
     
     
-computeScore(deck1, deck2)
-    
+print(computeScore(deck1, deck2))
+
     
     
 # part two, reset decks
@@ -123,7 +124,8 @@ def computeScore2(winningDeck):
     score = 0
     for no, card in enumerate(winningDeck):
         score += (no + 1) * card
-    
-    print(score)
+        
     return score
+
+print(computeScore2(winningDeck))
     

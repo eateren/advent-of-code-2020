@@ -85,6 +85,8 @@ def findErrorRate(nearbyTickets, availParam):
             errorRate += x if x not in availParam else 0
     
     return errorRate
+
+print(findErrorRate(nearbyTickets, availParam))
             
 
 # part 2
@@ -196,7 +198,6 @@ def findParamPos(dataDexFitsParams):
 paramKey = findParamPos(dataDexFitsParams)
 
 
-
 def findTicketKey(yourTicket, paramKey):
     
     s = 1    
@@ -205,4 +206,6 @@ def findTicketKey(yourTicket, paramKey):
         s *= yourTicket[paramKey[x]]
     
     return s
-    
+
+
+print(findTicketKey(yourTicket, paramKey))

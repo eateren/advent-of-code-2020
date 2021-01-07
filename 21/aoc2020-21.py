@@ -87,8 +87,10 @@ def idAller(allerDict):
             
     return ingrAller
             
+
 ingrAller = idAller(allerDict)
     
+
 def safeIngrCount(ingrAller, ingrList):
     
     count = 0
@@ -99,6 +101,10 @@ def safeIngrCount(ingrAller, ingrList):
                 
     return count
 
+
+print(safeIngrCount(ingrAller, ingrList))
+
+
 def createCDIL(ingrAller):
     
     ingrAller = sorted(ingrAller.items(), key = lambda sortvalue: sortvalue[1])
@@ -106,3 +112,5 @@ def createCDIL(ingrAller):
     CDIL = [ingr[0] for ingr in ingrAller]
         
     return ",".join(CDIL)
+
+print(createCDIL(ingrAller))

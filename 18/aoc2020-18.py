@@ -28,7 +28,6 @@ def operation(line):
     
     while nextChar[0] != ")":
         
-        print(total, nextChar)
         if dex == 0:
             dex += 1
             nextChar = [line[dex], dex]
@@ -63,10 +62,8 @@ def operation(line):
                 total += int(subData[0])
                 dex += subData[1] + 1
         
-        
         nextChar = [line[dex], dex]
-     
-    print (total, dex)
+
     return total, dex
     
 
@@ -81,6 +78,8 @@ def sumDataLine1(data):
     
     return sums
 
+
+print(sumDataLine1(data))
 
 
 def updateLine(line):
@@ -116,3 +115,5 @@ def sumDataLine2(data):
         sums += operation(dataline)[0]
     
     return sums
+
+print(sumDataLine2(data))

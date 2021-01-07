@@ -5,7 +5,6 @@ Created on Mon Dec 21 21:37:23 2020
 @author: eateren
 """
 import re
-from functools import lru_cache
 
 
 datafile = "data.txt"
@@ -33,8 +32,6 @@ def readData(datafile):
 
         messages.append(line.strip())
     
-    
-    
     return ruleDict, messages
 
 
@@ -57,13 +54,13 @@ ruleList = {}
 # this method
 def transfRegex(rule):
     
-    print(rule)
     char = ""
     if '"' in rule[0][0]:
         
         char += rule[0][0][1]
         
     else:
+        
         for ruleset in rule:
 
             regex = "(" + ")(".join([getSubRule(int(i)) for i in ruleset]) + ")|"
@@ -73,15 +70,12 @@ def transfRegex(rule):
         if len(rule) == 2:
             char = "(" + char + ")"
         
-    
     return char
 
 
 
 def getSubRule(ruleNo):
     
-    # this checks the cache is rule was processed.  else it transforms the 
-    # rule to regex
     if ruleNo in ruleList:
         
         return ruleList[ruleNo]
@@ -94,8 +88,8 @@ def getSubRule(ruleNo):
         return char
 
 
-
 regex0 = getSubRule(0)
+
 
 def countMsg(regex0, message):
     
@@ -107,6 +101,8 @@ def countMsg(regex0, message):
 
     return count
 
+
+print(countMsg(regex0, message))
 
 
 """
@@ -146,7 +142,6 @@ def transfRegex2(rule):
 
 def getSubRule2(ruleNo):
     
-    
     if ruleNo == 8:
         
         return rule8
@@ -161,7 +156,6 @@ def getSubRule2(ruleNo):
         ruleList2[ruleNo] = char
         
         return char
-
 
 
 # so pretty much rule 8 is now either rule 42 or rule 42 as many times as it
@@ -180,8 +174,8 @@ for x in range(1,30):
 rule11 = "(" + ")|(".join([subrule for subrule in rule11List]) + ")"
 
 
-
 regex0Two = getSubRule2(0)
+
 
 def countMsg2(regex0Two, message):
     
@@ -192,3 +186,5 @@ def countMsg2(regex0Two, message):
         count += matches
 
     return count
+
+print(countMsg2(regex0Two, message))

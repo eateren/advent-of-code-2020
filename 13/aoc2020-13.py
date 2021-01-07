@@ -19,10 +19,11 @@ def readDataFile(datafile):
     
     return startTime, busList
 
+
 data = readDataFile(datafile)
 
+
 def createBusTable(data):
-    
     
     busTable = []
     
@@ -77,7 +78,6 @@ def makeBusOffsetList(data):
     busOffsetList = []
     for x, bus in enumerate(data[1]):
         
-        but = []
         try:
             busNo = int(bus)
         except:
@@ -93,10 +93,13 @@ def makeBusOffsetList(data):
 busOffsetList = makeBusOffsetList(data)
 
 
-def findTime(busOffsetList):  #had to get help on the LCM stuff from reddit for this
+
+# had to get help on the LCM stuff from reddit for this
+# least common multiple will speed up iteration
+def findTime(busOffsetList):
     
     
-    lcm = 1 # least common multiple.  This will speed up iteration
+    lcm = 1 
     time = 0
     busList = busOffsetList
     

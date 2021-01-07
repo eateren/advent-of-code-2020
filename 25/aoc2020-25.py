@@ -35,9 +35,8 @@ def findEncKey(loop, subjNo):
         
         currNo = (currNo * subjNo) % divNo
     
-    print(currNo)
     return currNo
 
 
-findEncKey(cardLoop, doorKey)
+print(findEncKey(cardLoop, doorKey))
     

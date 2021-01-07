@@ -17,6 +17,7 @@ def readData(datafile):
     
     return list
 
+
 data = readData(datafile)
 
 
@@ -28,49 +29,33 @@ def navigate(datafile):
     
     for line in data:
         
-        
         compass = ["N", "E", "S", "W"]
         degrees = [0, 90, 180, 270, 360]
-        
-        
         
         amount = line[1]
         heading = line[0]
         
-        print(compass[headingDex])
-        
-        
         if heading == "F":
             heading = compass[headingDex] 
-        
         
         if heading == "R":
             headingDex = (headingDex + degrees.index(amount)) % 4
             heading = compass[headingDex]
-            print(compass[headingDex], "turned: R ", amount)
         elif heading == "L":
             headingDex = (headingDex - degrees.index(amount)) % 4
-            heading = compass[headingDex]  
-            print(compass[headingDex], "turned: L ", amount)
+            heading = compass[headingDex]
         elif heading == "E":
             x += amount
-            print(compass[headingDex], "moved: ", amount)
         elif heading == "W":
             x -= amount
-            print(compass[headingDex], "moved: ", amount)
         elif heading == "N":
             y += amount
-            print(compass[headingDex], "moved: ", amount)
         elif heading == "S":
             y -= amount
-            print(compass[headingDex], "moved: ", amount)
-        
-        
-            
-            
+
     return (y, x, abs(y) + abs(x))
             
-        
+print(navigate(datafile))   
 
 
 def moveWayPointBy(heading, amount):
@@ -80,16 +65,12 @@ def moveWayPointBy(heading, amount):
     
     if heading == "E":
         x += amount
-
-tswha    elif heading == "W":
+    elif heading == "W":
         x -= amount
-
     elif heading == "N":
         y += amount
-
     elif heading == "S":
         y -= amount
-
     return y, x
 
 
@@ -130,8 +111,6 @@ def navigate2(data):
         compass = ["N", "E", "S", "W"]
         turns = ["L", "R"]
         
-        print(heading, amount)
-        
         if heading in compass:
             move = moveWayPointBy(heading, amount)
             waypointY += move[0]
@@ -145,8 +124,6 @@ def navigate2(data):
             shipY = shipLoc[1]
             shipX = shipLoc[0]
             
-        print("ship: ", shipY, shipX)
-        print("waypoint: ", waypointY, waypointX)
-            
-            
     return (shipY, shipX, abs(shipY) + abs(shipX))
+
+print(navigate2(data))

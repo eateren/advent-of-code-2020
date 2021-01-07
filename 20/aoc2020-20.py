@@ -10,10 +10,11 @@ from pprint import pprint
 # for part one I think all we need to do if file the tiles that have two sides
 # that dont match to other tile sides.
 
-
 # read data
 
+
 datafile = "data.txt"
+
 
 def readData(datafile):
     
@@ -29,7 +30,8 @@ def readData(datafile):
     
     
     return tileDict
-    
+
+
 tileDict = readData(datafile)
 
 
@@ -93,9 +95,11 @@ def listSideMatches(sideDict):
         sideMatches[tileKey] = findTileSideMatches(sideDict[tileKey], sideDict)
 
     return sideMatches
+
     
 sideMatches = listSideMatches(sideDict)
     
+
 def findProduct(sideMatches):
     
     product = 1
@@ -108,7 +112,7 @@ def findProduct(sideMatches):
     
     return product
 
-
+print(findProduct(sideMatches))
 
 
 # part two requires that the tiles be matched to an image..
@@ -279,7 +283,6 @@ def createRawImage(topLeftTile, tileDict, sideDict):
     
     for y in range(imgHgt):
         
-        
         imageRow = []
         for x in range(imgLen):
             
@@ -300,7 +303,6 @@ def createRawImage(topLeftTile, tileDict, sideDict):
                 sideDict[newTileKey] = findTileSides(newTileKey, tileDict)
                 imageRow.append(newTileKey)
                 
-        
         imageList.append(imageRow)
         
     return imageList
@@ -327,48 +329,13 @@ def stitchImage(rawImageList):
     return mapList
 
 
-testImage = """.#.#..#.##...#.##..#####
-###....#.#....#..#......
-##.##.###.#.#..######...
-###.#####...#.#####.#..#
-##.#....#.##.####...#.##
-...########.#....#####.#
-....#..#...##..#.#.###..
-.####...#..#.....#......
-#..#.##..#..###.#.##....
-#.####..#.####.#.#.###..
-###.#.#...#.######.#..##
-#.####....##..########.#
-##..##.#...#...#.#.#.#..
-...#..#..#.#.##..###.###
-.#.#....#.##.#...###.##.
-###.#...#..#.##.######..
-.#.#.###.##.##.#..#.##..
-.####.###.#...###.#..#.#
-..#.#..#..#.#.#.####.###
-#..####...#.#.#.###.###.
-#####..#####...###....##
-#.##..#..#...#..####...#
-.#.###..##..##..####.##.
-...###...##...#...#..###""".split("\n")
-
-testImage = rotateTile(testImage)
-testImage = flipTile(testImage)
-
 mapImage = stitchImage(rawImageList)
-mapImage = rotateTile(mapImage)
-mapImage = rotateTile(mapImage)
-
-"""
-kept flipping map until found matches
-mapImage = flipTile(mapImage)
-mapImage = rotateTile(mapImage)
-"""
 
 
 seaMonster = """                  # 
 #    ##    ##    ###
  #  #  #  #  #  #   """
+
 
 def seaMonsterPos(seaMonster, mapImage):
     
@@ -406,13 +373,31 @@ def seaMonsterPos(seaMonster, mapImage):
 
             if all(checkList):
                 smPosList.append([x,y])
-                print(checkList)
     
-    print(smPosList)
     return smPosList
+
+
+
+def findSeaMonster(seaMonster, mapImage):
     
+    for x in range(2):
+        
+        mapImage = flipTile(mapImage)
+        
+        for y in range(4):
+        
+            mapImage = rotateTile(mapImage)
+
+            seaMonsCoor = seaMonsterPos(seaMonster, mapImage)
+            
+            if seaMonsCoor:
+                return seaMonsCoor
+
+
+seaMonsCoor = findSeaMonster(seaMonster, mapImage)
+
     
-def countChoppy(mapImage):
+def countChoppy(mapImage, seaMonsCoor):
     
     count = 0
     
@@ -421,5 +406,7 @@ def countChoppy(mapImage):
             if x == "#":
                 count += 1
                 
-    return count - len(seaMonsterPos(seaMonster, mapImage) * 15)
+    return count - (len(seaMonsCoor) * 15)
+
+print(countChoppy(mapImage, seaMonsCoor))
     
